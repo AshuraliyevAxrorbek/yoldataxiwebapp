@@ -20,13 +20,13 @@
     background: linear-gradient(135deg, var(--black) 0%, #1a1a1a 100%);
     color: var(--white);
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: center;
     padding: 20px;
   }
   .wrapper { width: 100%; max-width: 420px; }
   .header { text-align: center; margin-bottom: 20px; animation: fadeIn 1s ease; }
-  .header h1 { font-size: 22px; margin: 0; color: var(--yellow); font-weight: 800; }
+  .header h1 { font-size: 26px; margin: 0; color: var(--yellow); font-weight: 900; letter-spacing: 1px; }
   .header p { color: var(--gray); font-size: 14px; margin-top: 6px; }
   .line {
     width: 100%; height: 3px; border-radius: 2px;
@@ -64,6 +64,98 @@
     animation: fadeIn 0.6s ease;
   }
   .error { color: #ff5555; margin-bottom: 10px; font-size: 14px; }
+
+  /* Statistik blok */
+.stats {
+  margin: 60px auto;
+  max-width: 380px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Katta statistik bloklar */
+.stat.big {
+  width: 100%;
+  margin-bottom: 30px;
+  background: linear-gradient(135deg, #FFD600, #ffef9f);
+  color: var(--black);
+  border-radius: 20px;
+  padding: 25px 20px;
+  box-shadow: 0 10px 25px rgba(255,214,0,0.35);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat.big:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 14px 30px rgba(255,214,0,0.45);
+}
+
+/* Blok fonida highlight effekt */
+.stat.big::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -50%;
+  width: 200%; height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255,255,255,0.35) 50%,
+    transparent 100%
+  );
+  transform: skewX(-25deg);
+  animation: shine 4s infinite;
+}
+
+@keyframes shine {
+  0% { left: -50%; }
+  100% { left: 100%; }
+}
+
+/* Icon */
+.stat.big .icon {
+  font-size: 44px;
+  margin-bottom: 10px;
+  animation: bounce 2s infinite;
+}
+
+/* Raqam */
+.stat.big .number {
+  font-size: 60px;
+  font-weight: 900;
+  margin-bottom: 6px;
+  color: var(--black);
+  text-shadow: 0 0 8px rgba(0,0,0,0.25);
+}
+
+/* Izoh */
+.stat.big p {
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Icon bounce animatsiyasi */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Slogan pastda */
+.slogan {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--yellow);
+  text-align: center;
+  text-shadow: 0 0 10px rgba(255,214,0,0.5);
+  animation: fadeIn 1.5s ease;
+}
+
   @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
@@ -95,43 +187,24 @@
         <label>Mashina modeli</label>
         <select id="carModel" required>
           <option value="">Tanlang</option>
-          <option>Nexia 1</option>
-          <option>Nexia 2</option>
-          <option>Nexia 3</option>
-          <option>Lacetti</option>
-          <option>Gentra</option>
-          <option>Epica</option>
-          <option>Malibu 1</option>
-          <option>Malibu 2</option>
-          <option>Tracker</option>
-          <option>Captiva</option>
-          <option>Matiz</option>
-          <option>Spark</option>
-          <option>Cobalt</option>
-          <option>Damas</option>
-          <option>Toyota Corolla</option>
-          <option>Toyota Camry</option>
-          <option>Toyota Prado</option>
-          <option>Toyota Land Cruiser</option>
-          <option>Hyundai Accent</option>
-          <option>Hyundai Elantra</option>
-          <option>Kia Rio</option>
-          <option>BMW 3 Series</option>
+          <option>Nexia 1</option><option>Nexia 2</option><option>Nexia 3</option>
+          <option>Lacetti</option><option>Gentra</option><option>Epica</option>
+          <option>Malibu 1</option><option>Malibu 2</option>
+          <option>Tracker</option><option>Captiva</option><option>Matiz</option>
+          <option>Spark</option><option>Cobalt</option><option>Damas</option>
+          <option>Toyota Corolla</option><option>Toyota Camry</option>
+          <option>Toyota Prado</option><option>Toyota Land Cruiser</option>
+          <option>Hyundai Accent</option><option>Hyundai Elantra</option>
+          <option>Kia Rio</option><option>BMW 3 Series</option>
           <option>Mercedes C-Class</option>
         </select>
 
         <label>Mashina rangi</label>
         <select id="color" required>
           <option value="">Tanlang</option>
-          <option>Oq</option>
-          <option>Qora</option>
-          <option>Kumush</option>
-          <option>Jigarrang</option>
-          <option>Ko'k</option>
-          <option>Qizil</option>
-          <option>Yashil</option>
-          <option>Sariq</option>
-          <option>Olmosrang</option>
+          <option>Oq</option><option>Qora</option><option>Kumush</option>
+          <option>Jigarrang</option><option>Ko'k</option><option>Qizil</option>
+          <option>Yashil</option><option>Sariq</option><option>Olmosrang</option>
           <option>Bej</option>
         </select>
 
@@ -141,35 +214,19 @@
         <label>Qayerdan</label>
         <select id="from" required>
           <option value="">Viloyatni tanlang</option>
-          <option>Andijon</option>
-          <option>Buxoro</option>
-          <option>Farg'ona</option>
-          <option>Jizzax</option>
-          <option>Xorazm</option>
-          <option>Namangan</option>
-          <option>Navoiy</option>
-          <option>Qashqadaryo</option>
-          <option>Qoraqalpog'iston</option>
-          <option>Samarqand</option>
-          <option>Sirdaryo</option>
-          <option>Toshkent</option>
+          <option>Andijon</option><option>Buxoro</option><option>Farg'ona</option>
+          <option>Jizzax</option><option>Xorazm</option><option>Namangan</option>
+          <option>Navoiy</option><option>Qashqadaryo</option><option>Qoraqalpog'iston</option>
+          <option>Samarqand</option><option>Sirdaryo</option><option>Toshkent</option>
         </select>
 
         <label>Qayerga</label>
         <select id="to" required>
           <option value="">Viloyatni tanlang</option>
-          <option>Andijon</option>
-          <option>Buxoro</option>
-          <option>Farg'ona</option>
-          <option>Jizzax</option>
-          <option>Xorazm</option>
-          <option>Namangan</option>
-          <option>Navoiy</option>
-          <option>Qashqadaryo</option>
-          <option>Qoraqalpog'iston</option>
-          <option>Samarqand</option>
-          <option>Sirdaryo</option>
-          <option>Toshkent</option>
+          <option>Andijon</option><option>Buxoro</option><option>Farg'ona</option>
+          <option>Jizzax</option><option>Xorazm</option><option>Namangan</option>
+          <option>Navoiy</option><option>Qashqadaryo</option><option>Qoraqalpog'iston</option>
+          <option>Samarqand</option><option>Sirdaryo</option><option>Toshkent</option>
         </select>
 
         <button type="submit" class="btn">✅ Tasdiqlash</button>
@@ -177,6 +234,31 @@
       <div class="preview" id="preview">Ma'lumotlarni kiriting...</div>
     </div>
   </div>
+
+  <!-- Statistik blok -->
+<!-- Statistik blok - pastma-past, katta bloklarda -->
+<section class="stats">
+  <div class="stat big">
+    <div class="icon">🚖</div>
+    <div class="number" data-target="300">0</div>
+    <p>Haydovchi</p>
+  </div>
+  <div class="stat big">
+    <div class="icon">🧳</div>
+    <div class="number" data-target="800">0</div>
+    <p>Yo'lovchiga xizmat</p>
+  </div>
+  <div class="stat big">
+    <div class="icon">👨‍💼</div>
+    <div class="number" data-target="5">0</div>
+    <p>Xodim</p>
+  </div>
+
+  <div class="slogan">
+    🚖 <span>Yo'ldaTaxi bilan yo'lovchi toping!</span>
+  </div>
+</section>
+
 
 <script>
 const preview=document.getElementById("preview");
@@ -228,6 +310,38 @@ form.addEventListener("submit",e=>{
   let data={name,phone,car_model:car,color,plate,route:from+" ➝ "+to};
   tg.sendData(JSON.stringify(data));
   tg.close();
+});
+
+// Counter animatsiyasi
+const counters=document.querySelectorAll('.number');
+let started=false;
+
+function startCount(){
+  if(started) return;
+  counters.forEach(counter=>{
+    let target=+counter.getAttribute('data-target');
+    let count=0;
+    let step=target/100; 
+    let interval=setInterval(()=>{
+      count+=step;
+      if(count>=target){
+        counter.textContent=target+"+";
+        clearInterval(interval);
+      } else {
+        counter.textContent=Math.floor(count);
+      }
+    },20);
+  });
+  started=true;
+}
+
+window.addEventListener('scroll',()=>{
+  const stats=document.querySelector('.stats');
+  if(!stats) return;
+  const rect=stats.getBoundingClientRect();
+  if(rect.top<window.innerHeight && !started){
+    startCount();
+  }
 });
 </script>
 </body>
