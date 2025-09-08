@@ -44,13 +44,20 @@
     animation: fadeInUp 0.7s ease;
   }
   label { display: block; font-size: 13px; margin-bottom: 4px; color: #ddd; }
-  input, select {
-    width: 100%; padding: 12px; margin-bottom: 14px;
-    border-radius: var(--radius); border: none;
-    font-size: 15px; outline: none;
-    background: #222; color: var(--white);
-    transition: background 0.2s, transform 0.2s;
-  }
+input, select {
+  width: 100%;
+  box-sizing: border-box; /* padding va border width hisoblanadi */
+  padding: 12px;
+  margin-bottom: 14px;
+  border-radius: var(--radius);
+  border: none;
+  font-size: 15px;
+  outline: none;
+  background: #222;
+  color: var(--white);
+  transition: background 0.2s, transform 0.2s;
+}
+
   input:focus, select:focus { background: #333; transform: scale(1.02); }
   .btn {
     width: 100%; padding: 14px; border-radius: var(--radius);
@@ -184,29 +191,135 @@
         <label>Telefon raqami</label>
         <input type="tel" id="phone" placeholder="+998 90 123 45 67" required pattern="^\\+998[0-9]{9}$">
 
-        <label>Mashina modeli</label>
-        <select id="carModel" required>
-          <option value="">Tanlang</option>
-          <option>Nexia 1</option><option>Nexia 2</option><option>Nexia 3</option>
-          <option>Lacetti</option><option>Gentra</option><option>Epica</option>
-          <option>Malibu 1</option><option>Malibu 2</option>
-          <option>Tracker</option><option>Captiva</option><option>Matiz</option>
-          <option>Spark</option><option>Cobalt</option><option>Damas</option>
-          <option>Toyota Corolla</option><option>Toyota Camry</option>
-          <option>Toyota Prado</option><option>Toyota Land Cruiser</option>
-          <option>Hyundai Accent</option><option>Hyundai Elantra</option>
-          <option>Kia Rio</option><option>BMW 3 Series</option>
-          <option>Mercedes C-Class</option>
-        </select>
+<label for="carModel">🚗 Mashina modeli</label>
+<select id="carModel" required>
+  <option value="">Mashina modelini tanlang</option>
 
-        <label>Mashina rangi</label>
-        <select id="color" required>
-          <option value="">Tanlang</option>
-          <option>Oq</option><option>Qora</option><option>Kumush</option>
-          <option>Jigarrang</option><option>Ko'k</option><option>Qizil</option>
-          <option>Yashil</option><option>Sariq</option><option>Olmosrang</option>
-          <option>Bej</option>
-        </select>
+  <!-- Chevrolet -->
+  <optgroup label="Chevrolet">
+    <option>Nexia 1</option>
+    <option>Nexia 2</option>
+    <option>Nexia 3</option>
+    <option>Lacetti</option>
+    <option>Gentra</option>
+    <option>Cobalt</option>
+    <option>Spark</option>
+    <option>Damas</option>
+    <option>Matiz</option>
+    <option>Epica</option>
+    <option>Cruze</option>
+    <option>Tacuma</option>
+    <option>Tracker</option>
+    <option>Captiva</option>
+    <option>Malibu 1</option>
+    <option>Malibu 2</option>
+    <option>Malibu XL</option>
+    <option>Colorado</option>
+  </optgroup>
+
+  <!-- Toyota -->
+  <optgroup label="Toyota">
+    <option>Toyota Corolla</option>
+    <option>Toyota Camry</option>
+    <option>Toyota Auris</option>
+    <option>Toyota Highlander</option>
+    <option>Toyota Raize</option>
+    <option>Toyota Prado</option>
+    <option>Toyota Land Cruiser</option>
+  </optgroup>
+
+  <!-- Hyundai -->
+  <optgroup label="Hyundai">
+    <option>Hyundai Accent</option>
+    <option>Hyundai Elantra</option>
+    <option>Hyundai Avante</option>
+    <option>Hyundai Creta</option>
+    <option>Hyundai Kona</option>
+    <option>Hyundai Santafe</option>
+    <option>Hyundai Sonata</option>
+    <option>Hyundai Tucson</option>
+  </optgroup>
+
+  <!-- Kia -->
+  <optgroup label="Kia">
+    <option>Kia Rio</option>
+    <option>Kia K5</option>
+    <option>Kia Sportage</option>
+    <option>Kia Sonet</option>
+    <option>Kia Sorento</option>
+    <option>Kia Seltos</option>
+    <option>Kia K7</option>
+  </optgroup>
+
+  <!-- BYD -->
+  <optgroup label="BYD">
+    <option>BYD Chazor</option>
+    <option>BYD HAN</option>
+    <option>BYD Song Plus</option>
+    <option>BYD Song Pro</option>
+    <option>BYD Champion</option>
+  </optgroup>
+  </select>
+
+<label>Mashina rangi</label>
+<select id="color" required>
+  <option value="">Mashina rangini tanlang</option>
+
+  <!-- Ommabop ranglar -->
+  <option>Oq</option>
+  <option>Qora</option>
+  <option>Kumush</option>
+  <option>Jigarrang</option>
+  <option>Ko'k</option>
+  <option>Qizil</option>
+  <option>Yashil</option>
+  <option>Sariq</option>
+  <option>Olmosrang</option>
+  <option>Bej</option>
+
+  <!-- Chevrolet ranglari -->
+  <option>Summit White (Oq)</option>
+  <option>Switchblade Silver (Kumush)</option>
+  <option>Black Raven (Qora)</option>
+  <option>Velvet Red (Qizil)</option>
+  <option>Sandrift Beige (Bej)</option>
+
+  <!-- Toyota ranglari -->
+  <option>Super White</option>
+  <option>Attitude Black</option>
+  <option>Celestial Silver</option>
+  <option>Graphite Gray</option>
+  <option>Crimson Red</option>
+  <option>Dark Blue Metallic</option>
+  <option>Platinum Pearl</option>
+
+  <!-- Hyundai ranglari -->
+  <option>Phantom Black</option>
+  <option>Polar White</option>
+  <option>Typhoon Silver</option>
+  <option>Intense Blue</option>
+  <option>Fiery Red</option>
+  <option>Amazon Gray</option>
+  <option>Teal Green</option>
+
+  <!-- Kia ranglari -->
+  <option>Snow White Pearl</option>
+  <option>Steel Gray</option>
+  <option>Gravity Blue</option>
+  <option>Sparkling Silver</option>
+  <option>Cherry Black</option>
+  <option>Flame Blue</option>
+  <option>Runway Red</option>
+
+  <!-- BYD ranglari -->
+  <option>Arctic White</option>
+  <option>Space Black</option>
+  <option>Sky Blue</option>
+  <option>Glacier Silver</option>
+  <option>Forest Green</option>
+  <option>Sunset Orange</option>
+  <option>Wine Red</option>
+</select>
 
         <label>Mashina raqami</label>
         <input type="text" id="plate" placeholder="01A123BC" required>
@@ -254,9 +367,9 @@
     <p>Xodim</p>
   </div>
 
-  <div class="slogan">
-    🚖 <span>Yo'ldaTaxi bilan yo'lovchi toping!</span>
-  </div>
+<div class="slogan">
+  Yo'ldaTaxi haydovchisi bo'ling va ko'proq yo'lovchilarni o'z manzillariga yetkazing. Telegramdagi eng ommabop viloyatlararo taxi bot.
+</div>
 </section>
 
 
@@ -346,3 +459,4 @@ window.addEventListener('scroll',()=>{
 </script>
 </body>
 </html>
+
