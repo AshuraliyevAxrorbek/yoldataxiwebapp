@@ -417,7 +417,7 @@ input, select {
 <section class="stats">
   <div class="stat big">
     <div class="icon">🚖</div>
-    <div class="number" data-target="300">0</div>
+    <div class="number" data-target="150">0</div>
     <p>Haydovchi</p>
   </div>
   <div class="stat big">
@@ -499,7 +499,7 @@ form.addEventListener("input",updatePreview);
 const tg=window.Telegram.WebApp;
 tg.expand();
 
-form.addEventListener("submit",e=>{
+form.addEventListener("submit", e => {
   e.preventDefault();
   errorBox.textContent="";
 
@@ -563,7 +563,34 @@ window.addEventListener('scroll',()=>{
     startCount();
   }
 });
+
+form.addEventListener("submit", e => {
+  e.preventDefault();
+  errorBox.textContent="";
+
+  let name=document.getElementById("name").value.trim();
+  let phone=document.getElementById("phone").value.trim();
+  let car=document.getElementById("carModel").value;
+  let color=document.getElementById("color").value;
+  let plate=document.getElementById("plate").value.trim();
+  let from=document.getElementById("from").value;
+  let to=document.getElementById("to").value;
+
+  if(!name || !phone || !car || !color || !plate || !from || !to){
+    errorBox.textContent="❌ Iltimos, barcha maydonlarni to‘ldiring";
+    return;
+  }
+  if(from===to){
+    errorBox.textContent="❌ Qayerdan va Qayerga bir xil bo‘lishi mumkin emas";
+    return;
+  }
+
+  let data={name,phone,car_model:car,color,plate,route:from+" ➝ "+to};
+  tg.sendData(JSON.stringify(data));
+  tg.close();
+});
 </script>
 </body>
 </html>
+
 
