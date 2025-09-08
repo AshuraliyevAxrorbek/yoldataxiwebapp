@@ -106,8 +106,10 @@ input, select {
 .stat.big::after {
   content: "";
   position: absolute;
-  top: 0; left: -50%;
-  width: 200%; height: 100%;
+  top: 0;
+  left: -150%;   /* boshlab blokdan tashqaridan chiqadi */
+  width: 150%;   /* highlight kengligi */
+  height: 100%;
   background: linear-gradient(
     120deg,
     transparent 0%,
@@ -115,11 +117,11 @@ input, select {
     transparent 100%
   );
   transform: skewX(-25deg);
-  animation: shine 4s infinite;
+  animation: shine 3s linear infinite;
 }
 
 @keyframes shine {
-  0% { left: -50%; }
+  0% { left: -150%; }
   100% { left: 100%; }
 }
 
@@ -460,5 +462,6 @@ window.addEventListener('scroll',()=>{
 </script>
 </body>
 </html>
+
 
 
