@@ -106,10 +106,8 @@ input, select {
 .stat.big::after {
   content: "";
   position: absolute;
-  top: 0;
-  left: -150%;   /* boshlab blokdan tashqaridan chiqadi */
-  width: 150%;   /* highlight kengligi */
-  height: 100%;
+  top: 0; left: -50%;
+  width: 200%; height: 100%;
   background: linear-gradient(
     120deg,
     transparent 0%,
@@ -117,11 +115,11 @@ input, select {
     transparent 100%
   );
   transform: skewX(-25deg);
-  animation: shine 3s linear infinite;
+  animation: shine 4s infinite;
 }
 
 @keyframes shine {
-  0% { left: -150%; }
+  0% { left: -50%; }
   100% { left: 100%; }
 }
 
@@ -174,6 +172,69 @@ input, select {
     from { background-position: 0 0; }
     to { background-position: 40px 0; }
   }
+  
+ .faq {
+  max-width: 360px;
+  margin: -50px auto;
+  padding: 20px;
+}
+.faq h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--yellow);
+  font-size: 25px;
+  animation: fadeInDown 0.8s ease;
+}
+.faq-item {
+  margin-bottom: 15px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+  background: #1c1c1c;
+  transition: transform 0.3s ease;
+}
+.faq-item:hover { transform: scale(1.01); }
+.faq-question {
+  width: 100%;
+  padding: 15px;
+  font-size: 22px;
+  font-weight: 600;
+  background: #222;
+  border: none;
+  color: white;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.faq-question::after {
+  content: "➕";
+  font-size: 18px;
+  transition: transform 0.3s;
+}
+.faq-item.active .faq-question::after { content: "➖"; }
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  background: #111;
+  color: #ddd;
+  padding: 0 15px;
+  font-size: 14px;
+  line-height: 1.6;
+  transition: max-height 0.5s ease, padding 0.3s ease;
+}
+.faq-item.active .faq-answer {
+  max-height: 300px;
+  padding: 15px;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+  
 </style>
 </head>
 <body>
@@ -356,7 +417,7 @@ input, select {
 <section class="stats">
   <div class="stat big">
     <div class="icon">🚖</div>
-    <div class="number" data-target="150">0</div>
+    <div class="number" data-target="300">0</div>
     <p>Haydovchi</p>
   </div>
   <div class="stat big">
@@ -369,10 +430,46 @@ input, select {
     <div class="number" data-target="5">0</div>
     <p>Xodim</p>
   </div>
+</section>
+  
+<!-- FAQ (Tez-tez beriladigan savollar) -->
+<section class="faq">
+  <h2>❓ Tez-tez beriladigan savollar</h2>
 
-<div class="slogan">
-  Yo'ldaTaxi haydovchisi bo'ling va ko'proq yo'lovchilarni o'z manzillariga yetkazing. Telegramdagi eng ommabop viloyatlararo taxi bot.
-</div>
+  <div class="faq-item">
+    <button class="faq-question">📌 Qanday ro‘yxatdan o‘tiladi?</button>
+    <div class="faq-answer">
+      <p>
+        Ism familyangizni, telefon raqamingizni, avtomobilingiz nomi va rangini,
+        qayerdan qayerga qatnashingizni belgilab, <b>Tasdiqlash</b> tugmasini bosasiz.
+        Xodimlarimiz 3 ish kunida siz bilan bog‘lanib rasmiy guruhlarga qo‘shadi.
+      </p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">💰 Yo‘lovchi bilan narx qanday kelishiladi?</button>
+    <div class="faq-answer">
+      <p>
+        Ro‘yxatdan o‘tib rasmiy guruhga qo‘shilganingizdan so‘ng
+        yo‘lovchilarga qo‘ng‘iroq qilib narxlarni kelishib olasiz.
+        Iloji boricha arzon narx aytsangiz, botdan doimiy ravishda foydalanishadi.
+        Shuning uchun yo‘lovchilar bilan <b>adolatli va arzon narxda kelishishingizni</b> tavsiya qilamiz.
+      </p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">🆓 Xizmat pullikmi yoki yo‘qmi?</button>
+    <div class="faq-answer">
+      <p>
+        Hozircha haydovchilar uchun <b>bepul</b> ravishda ishlamoqda.
+        Keyinchalik yo‘lovchilar soni oshgani sari xizmat pullik bo‘lishi mumkin.
+        Haftalik va oylik to‘lovlar joriy etiladi. 
+        Shuning uchun hozircha imkoniyatdan foydalanib <b>bepul ro‘yxatdan o‘ting</b>.
+      </p>
+    </div>
+  </div>
 </section>
 
 
@@ -450,6 +547,13 @@ function startCount(){
   });
   started=true;
 }
+  
+document.querySelectorAll(".faq-question").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    const item=btn.parentElement;
+    item.classList.toggle("active");
+  });
+});
 
 window.addEventListener('scroll',()=>{
   const stats=document.querySelector('.stats');
@@ -462,6 +566,4 @@ window.addEventListener('scroll',()=>{
 </script>
 </body>
 </html>
-
-
 
