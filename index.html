@@ -26,9 +26,7 @@
   }
   .wrapper { width: 100%; max-width: 420px; }
   .header { text-align: center; margin-bottom: 20px; animation: fadeIn 1s ease; }
-  .header h1 {
-    font-size: 22px; margin: 0; color: var(--yellow); font-weight: 800;
-  }
+  .header h1 { font-size: 22px; margin: 0; color: var(--yellow); font-weight: 800; }
   .header p { color: var(--gray); font-size: 14px; margin-top: 6px; }
   .line {
     width: 100%; height: 3px; border-radius: 2px;
@@ -45,9 +43,7 @@
     padding: 18px;
     animation: fadeInUp 0.7s ease;
   }
-  label {
-    display: block; font-size: 13px; margin-bottom: 4px; color: #ddd;
-  }
+  label { display: block; font-size: 13px; margin-bottom: 4px; color: #ddd; }
   input, select {
     width: 100%; padding: 12px; margin-bottom: 14px;
     border-radius: var(--radius); border: none;
@@ -55,9 +51,7 @@
     background: #222; color: var(--white);
     transition: background 0.2s, transform 0.2s;
   }
-  input:focus, select:focus {
-    background: #333; transform: scale(1.02);
-  }
+  input:focus, select:focus { background: #333; transform: scale(1.02); }
   .btn {
     width: 100%; padding: 14px; border-radius: var(--radius);
     border: none; background: var(--yellow); color: var(--black);
@@ -69,13 +63,12 @@
     margin-top: 14px; font-size: 14px; color: #bbb; line-height: 1.5;
     animation: fadeIn 0.6s ease;
   }
+  .error { color: #ff5555; margin-bottom: 10px; font-size: 14px; }
   @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
   }
-  @keyframes fadeIn {
-    from { opacity: 0; } to { opacity: 1; }
-  }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   @keyframes moveLine {
     from { background-position: 0 0; }
     to { background-position: 40px 0; }
@@ -91,26 +84,35 @@
     <div class="line"></div>
     <div class="card">
       <form id="driverForm">
+        <div class="error" id="error"></div>
+
         <label>Ism familiya</label>
         <input type="text" id="name" placeholder="Akmal Rustamov" required>
 
         <label>Telefon raqami</label>
-        <input type="tel" id="phone" placeholder="+998 90 123 45 67" required pattern="^\+998[0-9]{9}$">
+        <input type="tel" id="phone" placeholder="+998 90 123 45 67" required pattern="^\\+998[0-9]{9}$">
 
         <label>Mashina modeli</label>
         <select id="carModel" required>
           <option value="">Tanlang</option>
-          <option>Chevrolet Gentra</option>
-          <option>Chevrolet Cobalt</option>
-          <option>Chevrolet Nexia 3</option>
-          <option>Chevrolet Malibu</option>
-          <option>Chevrolet Spark</option>
-          <option>Chevrolet Tracker</option>
-          <option>Daewoo Damas</option>
+          <option>Nexia 1</option>
+          <option>Nexia 2</option>
+          <option>Nexia 3</option>
+          <option>Lacetti</option>
+          <option>Gentra</option>
+          <option>Epica</option>
+          <option>Malibu 1</option>
+          <option>Malibu 2</option>
+          <option>Tracker</option>
+          <option>Captiva</option>
+          <option>Matiz</option>
+          <option>Spark</option>
+          <option>Cobalt</option>
+          <option>Damas</option>
           <option>Toyota Corolla</option>
           <option>Toyota Camry</option>
+          <option>Toyota Prado</option>
           <option>Toyota Land Cruiser</option>
-          <option>Nissan Sunny</option>
           <option>Hyundai Accent</option>
           <option>Hyundai Elantra</option>
           <option>Kia Rio</option>
@@ -119,19 +121,55 @@
         </select>
 
         <label>Mashina rangi</label>
-        <input type="text" id="color" placeholder="Oq, Qora..." required>
+        <select id="color" required>
+          <option value="">Tanlang</option>
+          <option>Oq</option>
+          <option>Qora</option>
+          <option>Kumush</option>
+          <option>Jigarrang</option>
+          <option>Ko'k</option>
+          <option>Qizil</option>
+          <option>Yashil</option>
+          <option>Sariq</option>
+          <option>Olmosrang</option>
+          <option>Bej</option>
+        </select>
 
         <label>Mashina raqami</label>
         <input type="text" id="plate" placeholder="01A123BC" required>
 
-        <label>Yo'nalish</label>
-        <select id="route" required>
-          <option value="">Tanlang</option>
-          <option>Farg'ona ➝ Toshkent</option>
-          <option>Andijon ➝ Toshkent</option>
-          <option>Namangan ➝ Toshkent</option>
-          <option>Toshkent ➝ Andijon</option>
-          <option>Qashqadaryo ➝ Toshkent</option>
+        <label>Qayerdan</label>
+        <select id="from" required>
+          <option value="">Viloyatni tanlang</option>
+          <option>Andijon</option>
+          <option>Buxoro</option>
+          <option>Farg'ona</option>
+          <option>Jizzax</option>
+          <option>Xorazm</option>
+          <option>Namangan</option>
+          <option>Navoiy</option>
+          <option>Qashqadaryo</option>
+          <option>Qoraqalpog'iston</option>
+          <option>Samarqand</option>
+          <option>Sirdaryo</option>
+          <option>Toshkent</option>
+        </select>
+
+        <label>Qayerga</label>
+        <select id="to" required>
+          <option value="">Viloyatni tanlang</option>
+          <option>Andijon</option>
+          <option>Buxoro</option>
+          <option>Farg'ona</option>
+          <option>Jizzax</option>
+          <option>Xorazm</option>
+          <option>Namangan</option>
+          <option>Navoiy</option>
+          <option>Qashqadaryo</option>
+          <option>Qoraqalpog'iston</option>
+          <option>Samarqand</option>
+          <option>Sirdaryo</option>
+          <option>Toshkent</option>
         </select>
 
         <button type="submit" class="btn">✅ Tasdiqlash</button>
@@ -141,8 +179,9 @@
   </div>
 
 <script>
-const preview = document.getElementById("preview");
-const form = document.getElementById("driverForm");
+const preview=document.getElementById("preview");
+const form=document.getElementById("driverForm");
+const errorBox=document.getElementById("error");
 
 function updatePreview(){
   let name=document.getElementById("name").value;
@@ -150,30 +189,43 @@ function updatePreview(){
   let car=document.getElementById("carModel").value;
   let color=document.getElementById("color").value;
   let plate=document.getElementById("plate").value;
-  let route=document.getElementById("route").value;
+  let from=document.getElementById("from").value;
+  let to=document.getElementById("to").value;
 
   preview.innerHTML=
     `👤 ${name||"—"}<br>`+
     `📞 ${phone||"—"}<br>`+
     `🚗 ${car||"—"} (${color||"—"})<br>`+
     `🔢 ${plate||"—"}<br>`+
-    `📍 ${route||"—"}`;
+    `📍 ${from||"—"} ➝ ${to||"—"}`;
 }
-form.addEventListener("input", updatePreview);
+form.addEventListener("input",updatePreview);
 
 const tg=window.Telegram.WebApp;
 tg.expand();
 
 form.addEventListener("submit",e=>{
   e.preventDefault();
-  let data={
-    name:document.getElementById("name").value,
-    phone:document.getElementById("phone").value,
-    car_model:document.getElementById("carModel").value,
-    color:document.getElementById("color").value,
-    plate:document.getElementById("plate").value,
-    route:document.getElementById("route").value
-  };
+  errorBox.textContent="";
+
+  let name=document.getElementById("name").value.trim();
+  let phone=document.getElementById("phone").value.trim();
+  let car=document.getElementById("carModel").value;
+  let color=document.getElementById("color").value;
+  let plate=document.getElementById("plate").value.trim();
+  let from=document.getElementById("from").value;
+  let to=document.getElementById("to").value;
+
+  if(!name || !phone || !car || !color || !plate || !from || !to){
+    errorBox.textContent="❌ Iltimos, barcha maydonlarni to‘ldiring";
+    return;
+  }
+  if(from===to){
+    errorBox.textContent="❌ Qayerdan va Qayerga bir xil bo‘lishi mumkin emas";
+    return;
+  }
+
+  let data={name,phone,car_model:car,color,plate,route:from+" ➝ "+to};
   tg.sendData(JSON.stringify(data));
   tg.close();
 });
