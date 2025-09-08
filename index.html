@@ -75,7 +75,7 @@ input, select {
   /* Statistik blok */
 .stats {
   margin: 60px auto;
-  max-width: 380px;
+  max-width: 360px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -188,8 +188,9 @@ input, select {
         <label>Ism familiya</label>
         <input type="text" id="name" placeholder="Akmal Rustamov" required>
 
-        <label>Telefon raqami</label>
-        <input type="tel" id="phone" placeholder="+998 90 123 45 67" required pattern="^\\+998[0-9]{9}$">
+<label>Telefon raqami</label>
+<input type="tel" id="phone" placeholder="+998901234567" required pattern="\+998\d{9}">
+
 
 <label for="carModel">🚗 Mashina modeli</label>
 <select id="carModel" required>
