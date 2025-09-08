@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Yo'ldaTaxi — Haydovchi ro'yxati</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+  :root {
+    --yellow: #FFD600;
+    --black: #111;
+    --white: #fff;
+    --gray: #aaa;
+    --radius: 14px;
+    --shadow: 0 6px 18px rgba(0,0,0,0.25);
+    font-family: "Inter", system-ui, sans-serif;
+  }
+  body {
+    margin: 0;
+    background: linear-gradient(180deg, var(--yellow), #f1c40f);
+    display: flex;
+    justify-content: center;
+    padding: 14px;
+  }
+  .card {
+    background: var(--black);
+    color: var(--white);
+    width: 100%;
+    max-width: 480px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .title {
+    font-weight: 800;
+    font-size: 22px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .subtitle {
+    font-size: 14px;
+    text-align: center;
+    color: var(--gray);
+    margin-bottom: 18px;
+  }
+  .field {
+    margin-bottom: 12px;
+  }
+  label {
+    font-size: 13px;
+    margin-bottom: 4px;
+    display: block;
+    color: var(--white);
+  }
+  input, select {
+    width: 100%;
+    padding: 12px;
+    border-radius: var(--radius);
+    border: none;
+    font-size: 15px;
+    outline: none;
+  }
+  input {
+    background: var(--white);
+    color: var(--black);
+  }
+  select {
+    background: var(--white);
+    color: var(--black);
+  }
+  .btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: var(--radius);
+    border: none;
+    background: var(--yellow);
+    color: var(--black);
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s;
+  }
+  .btn:active { transform: scale(0.97); }
+  .preview {
+    margin-top: 16px;
+    padding: 10px;
+    border-radius: var(--radius);
+    background: rgba(255,255,255,0.05);
+    font-size: 14px;
+  }
+  /* animatsion fon */
+  .checker {
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 160px; height: 160px;
+    background-image: linear-gradient(45deg, var(--yellow) 25%, transparent 25%),
+                      linear-gradient(-45deg, var(--yellow) 25%, transparent 25%),
+                      linear-gradient(45deg, transparent 75%, var(--yellow) 75%),
+                      linear-gradient(-45deg, transparent 75%, var(--yellow) 75%);
+    background-size: 40px 40px;
+    background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
+    opacity: 0.15;
+    animation: move 5s linear infinite;
+  }
+  @keyframes move {
+    0% { background-position: 0 0, 0 20px, 20px -20px, -20px 0px; }
+    100% { background-position: 40px 40px, 40px 60px, 60px 20px, 20px 40px; }
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="checker"></div>
+    <div class="title">🚖 Yo'ldaTaxi</div>
+    <div class="subtitle">Haydovchi sifatida ro'yxatdan o'ting</div>
+    <form id="driverForm">
+      <div class="field">
+        <label>Ism familiya</label>
+        <input type="text" id="name" placeholder="Akmal Rustamov" required>
+      </div>
+      <div class="field">
+        <label>Avtomobil modeli</label>
+        <input type="search" id="carSearch" placeholder="Modelni yozing..." required>
+        <select id="carModel" size="5"></select>
+      </div>
+      <div class="field">
+        <label>Mashina rangi</label>
+        <input type="text" id="color" placeholder="Oq, Qora..." required>
+      </div>
+      <div class="field">
+        <label>Mashina raqami</label>
+        <input type="text" id="plate" placeholder="01A123BC" required>
+      </div>
+      <div class="field">
+        <label>Yo'nalish</label>
+        <select id="route" required>
+          <option value="">Tanlang</option>
+          <option>Farg'ona ➝ Toshkent</option>
+          <option>Andijon ➝ Toshkent</option>
+          <option>Namangan ➝ Toshkent</option>
+          <option>Toshkent ➝ Andijon</option>
+          <option>Qashqadaryo ➝ Toshkent</option>
+        </select>
+      </div>
+      <button type="submit" class="btn">✅ Tasdiqlash</button>
+    </form>
+    <div class="preview" id="preview">Ma'lumotlarni kiriting...</div>
+  </div>
+
+<script>
+const models = [
+  "Chevrolet Gentra","Chevrolet Cobalt","Chevrolet Nexia 3","Chevrolet Malibu",
+  "Chevrolet Spark","Chevrolet Tracker","Daewoo Damas",
+  "Ravon R2","Ravon R3",
+  "Toyota Corolla","Toyota Camry","Toyota RAV4","Toyota Land Cruiser",
+  "Nissan Sunny","Nissan Qashqai","Nissan Patrol",
+  "Hyundai Accent","Hyundai Elantra","Hyundai Sonata","Hyundai Tucson",
+  "Kia Rio","Kia Cerato","Kia K5",
+  "Mitsubishi Lancer","Mitsubishi Outlander",
+  "Lada 2107","Lada Largus","Volkswagen Polo","Volkswagen Passat",
+  "Ford Focus","Skoda Octavia","BMW 3 Series","Mercedes C-Class"
+];
+const carSearch = document.getElementById("carSearch");
+const carModel = document.getElementById("carModel");
+const preview = document.getElementById("preview");
+let selectedModel = "";
+
+function filterModels(q){
+  carModel.innerHTML = "";
+  models.filter(m => m.toLowerCase().includes(q.toLowerCase()))
+        .forEach(m=>{
+          let opt=document.createElement("option");
+          opt.textContent=m;
+          carModel.appendChild(opt);
+        });
+}
+carSearch.addEventListener("input", e=>{
+  filterModels(e.target.value);
+});
+carModel.addEventListener("change", ()=>{
+  selectedModel = carModel.value;
+  updatePreview();
+});
+document.getElementById("driverForm").addEventListener("input", updatePreview);
+function updatePreview(){
+  let name=document.getElementById("name").value;
+  let color=document.getElementById("color").value;
+  let plate=document.getElementById("plate").value;
+  let route=document.getElementById("route").value;
+  preview.innerHTML=`👤 ${name||"—"}<br>🚗 ${selectedModel||"—"} (${color||"—"})<br>🔢 ${plate||"—"}<br>📍 ${route||"—"}`;
+}
+const tg=window.Telegram.WebApp;
+tg.expand();
+document.getElementById("driverForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  let data={
+    name:document.getElementById("name").value,
+    car_model:selectedModel,
+    color:document.getElementById("color").value,
+    plate:document.getElementById("plate").value,
+    route:document.getElementById("route").value
+  };
+  tg.sendData(JSON.stringify(data));
+  tg.close();
+});
+filterModels(""); // init
+</script>
+</body>
+</html>
